@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "uI8m90F0/RJGnbmu6bz3pyaQFxKsfAM1sHMDWAtz3oX7Ce6mE1oEvekLav1+nfZpNPF1NCQbozSlXMpIjSK83A==",
+  "success": true,
+  "projectFilePath": "d:\\Users\\maciek\\Desktop\\DevPlanner git\\DevPlanner\\DevPlanner.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\maciek\\.nuget\\packages\\google.apis\\1.46.0\\google.apis.1.46.0.nupkg.sha512",
+    "C:\\Users\\maciek\\.nuget\\packages\\google.apis.auth\\1.46.0\\google.apis.auth.1.46.0.nupkg.sha512",
+    "C:\\Users\\maciek\\.nuget\\packages\\google.apis.core\\1.46.0\\google.apis.core.1.46.0.nupkg.sha512",
+    "C:\\Users\\maciek\\.nuget\\packages\\google.apis.sheets.v4\\1.46.0.1988\\google.apis.sheets.v4.1.46.0.1988.nupkg.sha512",
+    "C:\\Users\\maciek\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
