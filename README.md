@@ -1,3 +1,40 @@
-DevPlanner is easy app for planning your group and private projects.
+# DEVPLANNER
+*Author: gl00man <maciekbereda46@gmail.com>*
 
-All you need to do is add your .json google sheets api key to DevPlanner/bin/Debug/netcoreapp3.1 and change some variables in code(i marked them by comments line 39 and 220). 
+## Table of Content
+  - [What is DevPlanner?](#what-is-devplanner)
+  - [Requirements](#requirements)
+  - [How to use it?](#how-to-use-it)
+    - [Public projects](#public-projects)
+	- [Private projects](#private-projects)
+
+## What is DevPlanner?
+DevPlanner is easy C# WPF application for developers. With this app You can plan your to-do private and public projects.
+
+## Requirements
+All You need to run this app is ".NET Core 3.1 Runtime" installed.
+For Public Projects Google account(optional).
+
+Program is on MIT License so You can use and edit code as You want.
+The .exe file can be found in DevPlanner/bin/Debug/netcoreapp3.1 
+
+## How to use it?
+
+### Public projects
+Public project list is based on Google Sheets, if you want to create new public list follow this steps:
+1. Create new google sheet
+2. Open dev_planner.json(api key file) file in DevPlanner/bin/Debug/netcoreapp3.1 directory and copy this client email address.
+```bash
+  "client_email": "devplanner@devplanner-280912.iam.gserviceaccount.com",
+```
+3. Now add this email as editor in Your Google sheet document.
+4. Open DevPlanner, click add api file.
+5. Click "Browse" button and attach api key .json file
+6. In Sheet TextBox write any name for your list.
+7. In Sheet Id TextBox paste your Google sheet id(You can find it in documets link as SHEET_ID : docs.google.com/spreadsheets/d/SHEET_ID/edit#gid=0).
+8. Accept by clicking save and restart DevPlanner.
+
+All Your friend need to access your sheet is Sheet's id.
+
+### Private projects
+Projects that can only You see.

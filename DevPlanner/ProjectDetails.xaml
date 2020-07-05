@@ -7,13 +7,16 @@
         mc:Ignorable="d"
         Title="ProjectDetails" Height="350" Width="300" ResizeMode="CanMinimize">
     <Grid Background="#F2F2F0">
-        <StackPanel Orientation="Vertical">
-            <TextBlock x:Name="titleTextBlock" Text="cats /ᐠ｡ꞈ｡ᐟ\   /ᐠ｡ꞈ｡ᐟ\" FontSize="20" HorizontalAlignment="Left" Margin="38 10 0 0" FontWeight="Bold"/>
-            <RichTextBox x:Name="descrpitonRichTextBox" Width="220" Height="auto" FontSize="15" HorizontalAlignment="Left" Margin="32 5 0 0" Background="#F2F2F0" BorderBrush="#F2F2F0" IsReadOnly="True"/>
-            <Separator Width="250" Margin="0 10 0 0"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Deadline: " FontSize="15" HorizontalAlignment="Left" Margin="38 5 0 0"/>
-                <TextBlock x:Name="deadlineTextBlock" Text="/ᐠ｡ꞈ｡ᐟ\" FontSize="15" HorizontalAlignment="Left" Margin="5 5 0 0"/>
+        <StackPanel>
+            <TextBlock x:Name="dateTextBlock" FontSize="14" HorizontalAlignment="Right" Margin="0 5 5 0"/>
+                <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="titleTextBlock" Text="kotki =^.^= =^.^=" FontSize="20" HorizontalAlignment="Left" Margin="38 0 0 0" FontWeight="Bold"/>
+                <RichTextBox x:Name="descrpitonRichTextBox" Width="220" Height="auto" FontSize="15" HorizontalAlignment="Left" Margin="32 5 0 0" Background="#F2F2F0" BorderBrush="#F2F2F0" IsReadOnly="True"/>
+                <Separator Width="250" Margin="0 10 0 0"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Deadline: " FontSize="15" HorizontalAlignment="Left" Margin="38 5 0 0"/>
+                    <TextBlock x:Name="deadlineTextBlock" Text="=^.^=" FontSize="15" HorizontalAlignment="Left" Margin="5 5 0 0"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

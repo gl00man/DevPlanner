@@ -24,6 +24,7 @@ namespace DevPlanner
                 descrpitonRichTextBox.Document.Blocks.Clear();
                 descrpitonRichTextBox.Document.Blocks.Add(new Paragraph(new Run(newProj.description)));
                 deadlineTextBlock.Text = newProj.deadline;
+                dateTextBlock.Text = newProj.publicationDate;
             }
             else
             {

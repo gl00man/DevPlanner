@@ -10,13 +10,15 @@ namespace DevPlanner
         public string deadline { get; set; }
         public string privacy { get; set; }
         public string description { get; set; }
+        public string publicationDate { get; set; }
 
-        public NewProject(string t, string dea, string p, string des)
+        public NewProject(string t, string dea, string p, string des, string pd)
         {
             title = t;
             deadline = dea;
             privacy = p;
             description = des;
+            publicationDate = pd;
         }
 
         public override string ToString()

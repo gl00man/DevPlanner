@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevPlanner"
         mc:Ignorable="d"
-        Title="DevPlanner" Height="500" Width="450" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+        Title="DevPlanner" Height="560" Width="450" ResizeMode="CanMinimize">
     <Grid Background="#F2F2F0">
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
@@ -14,6 +14,11 @@
                 <Button x:Name="delPublicBtn" Content="delete" FontSize="13" Width="40" Height="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1F2324" HorizontalAlignment="Left" Margin="10 5 0 0" Click="delPublicBtn_Click"/>
             </StackPanel>
             <ListBox x:Name="publicList" Background="{x:Null}" BorderBrush="#1F2324" Foreground="#1F2324" Height="200" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20 0 0 0" MouseDoubleClick="publicList_MouseDoubleClick"/>
+            <ComboBox x:Name="apisCmb" Foreground="#1F2324" FontSize="15" Width="200" HorizontalAlignment="Left" Margin="20 5 0 0"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="addConenctionBtn" Content="add api file" FontSize="13" Width="70" Height="20" Background="#1F2324" BorderBrush="#1F2324" Foreground="#F2F2F0"  HorizontalAlignment="Left" Margin="35 5 20 0" Click="addConenctionBtn_Click"/>
+                <Button x:Name="connectBtn" Content="connect" FontSize="13" Width="70" Height="20" Background="#1F2324" BorderBrush="#1F2324" Foreground="#F2F2F0"  HorizontalAlignment="Left" Margin="10 5 0 0" Click="connectBtn_Click"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Private Projects" Foreground="#1F2324" FontSize="15" Width="110" HorizontalAlignment="Left" Margin="20 5 0 0"/>
                 <Button x:Name="delPrivateBtn" Content="delete" FontSize="13" Width="40" Height="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1F2324" HorizontalAlignment="Left" Margin="50 5 0 0" Click="delPrivateBtn_Click"/>
@@ -39,7 +44,7 @@
             </StackPanel>
             <Separator Margin="0 20 0 0" Width="190"/>
             <TextBlock Text="In progress:" Foreground="#1F2324" FontSize="13" Width="auto" HorizontalAlignment="Left" Margin="20 10 0 0"/>
-            <ListBox x:Name="inProgressList" Width="160" Height="100" FontSize="13" HorizontalAlignment="Left" Margin="20 2 0 0" Background="#F2F2F0" BorderBrush="#F2F2F0"/>
+            <ListBox x:Name="inProgressList" Width="190" Height="100" FontSize="13" HorizontalAlignment="Left" Margin="20 2 0 0" Background="#F2F2F0" BorderBrush="#F2F2F0"/>
         </StackPanel>
     </Grid>
 </Window>

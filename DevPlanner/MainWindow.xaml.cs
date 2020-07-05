@@ -33,10 +33,12 @@ namespace DevPlanner
 
         List<NewProject> pubProjList;
         List<NewProject> privProjList;
+        List<NewApi> apiList;
 
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
-        static readonly string ApplicationName = "DevPlanner"; 
-        static readonly string SpreadsheetId = ""; //Your google sheet id
+        static readonly string ApplicationName = "DevPlanner";
+        string SpreadsheetId;
+        string path;
         static SheetsService service;
 
         public MainWindow()
@@ -56,15 +58,15 @@ namespace DevPlanner
 
             pubProjList = new List<NewProject>();
             privProjList = new List<NewProject>();
+            apiList = new List<NewApi>();
             inProgressProjectsList = new List<string>();
 
             ReadData();
             privateList.ItemsSource = privProjList;
+            checkPrivate(null);
 
-            accessSheets();
-            readSheetData();
-            publicList.ItemsSource = pubProjList;
-
+            ReadApiData();
+            apisCmb.ItemsSource = apiList;
         }
 
         //Add new item
@@ -78,14 +80,15 @@ namespace DevPlanner
 
             if (isAllData == true)
             {
-                DateTime? selectedDate = deadlineTxt.SelectedDate;
-                string formatted = selectedDate.Value.ToString("dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                string publicationDate = DateTime.Now.ToString("dd-MM-yyy").ToString(); 
 
-                NewProject newProj = new NewProject(titleTxt.Text, formatted, privacyCmb.Text, descriptionTxt.Text);
+                DateTime? selectedDate = deadlineTxt.SelectedDate;
+                string formatted = selectedDate.Value.ToString("dd-MM-yyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                NewProject newProj = new NewProject(titleTxt.Text, formatted, privacyCmb.Text, descriptionTxt.Text, publicationDate);
 
                 if (privacyCmb.Text == "Public")
                 {
-
                     pubProjList.Add(newProj);
                     publicList.ItemsSource = null;
                     publicList.ItemsSource = pubProjList;
@@ -106,11 +109,10 @@ namespace DevPlanner
                 }
                 else if (privacyCmb.Text == "Private")
                 {
-
                     privProjList.Add(newProj);
                     privateList.ItemsSource = null;
                     privateList.ItemsSource = privProjList;
-                    SaveToTxt();
+                    SaveToTxt(newProj);
 
                     DateTime actualDate = DateTime.Parse(date);
                     DateTime deadlineDate = DateTime.Parse(deadlineTxt.SelectedDate.ToString());
@@ -146,7 +148,6 @@ namespace DevPlanner
             return gateway;
         }
 
-
         //Clear textboxes
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
@@ -164,7 +165,7 @@ namespace DevPlanner
             pubProjList.Remove(selectedProj);
             inProgressProjectsList.Remove(selectedProj.title);
 
-            var range = $"!A1:D";
+            var range = $"!A1:E";
             var requestBody = new ClearValuesRequest();
 
             var deleteRequest = service.Spreadsheets.Values.Clear(requestBody, SpreadsheetId, range);
@@ -185,7 +186,7 @@ namespace DevPlanner
             {
                 foreach(NewProject newProj in privProjList)
                 {
-                    string desc = newProj.title + "|" + newProj.deadline + "|" + newProj.privacy + "|" + newProj.description;
+                    string desc = newProj.title + "|" + newProj.deadline + "|" + newProj.privacy + "|" + newProj.description + "|" + newProj.publicationDate;
                     sw.WriteLine(desc);
                 }
             }
@@ -213,11 +214,11 @@ namespace DevPlanner
 
         //Saving & reading data (sheets)
 
-        static void accessSheets()
+        void accessSheets()
         {
             GoogleCredential credential;
 
-            using (var stream = new FileStream("", FileMode.Open, FileAccess.Read)) //in "" type title of your api key .json file
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleCredential.FromStream(stream).CreateScoped(Scopes);
             }
@@ -229,9 +230,9 @@ namespace DevPlanner
             });
         }
 
-        void readSheetData()
+         void readSheetData()
         { 
-            var range = $"A:D";
+            var range = $"A:E";
             var request = service.Spreadsheets.Values.Get(SpreadsheetId, range);
 
             try
@@ -243,7 +244,7 @@ namespace DevPlanner
                     foreach(var row in values)
                     {
                         string dateParsed = dateParse(row[1].ToString());
-                        NewProject newProj = new NewProject(row[0].ToString(), dateParsed, row[2].ToString(), row[3].ToString());
+                        NewProject newProj = new NewProject(row[0].ToString(), dateParsed, row[2].ToString(), row[3].ToString(), row[4].ToString());
                         if (!pubProjList.Contains(newProj))
                         {
                             pubProjList.Add(newProj);
@@ -274,10 +275,10 @@ namespace DevPlanner
 
         void saveProjectToSheet(NewProject newProj)
         {
-            var range = $"A:D";
+            var range = $"A:E";
             var valueRange = new ValueRange();
 
-            var objectList = new List<object>() { newProj.title, newProj.deadline, newProj.privacy, newProj.description };
+            var objectList = new List<object>() { newProj.title, newProj.deadline, newProj.privacy, newProj.description, newProj.publicationDate };
             valueRange.Values = new List<IList<object>> { objectList };
 
             var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, range);
@@ -287,12 +288,12 @@ namespace DevPlanner
 
         void ImportListToSheets()
         {
-            var range = $"A:D";
+            var range = $"A:E";
             var valueRange = new ValueRange();
 
             foreach (NewProject proj in pubProjList)
             {
-                var objectList = new List<object>() { proj.title, proj.deadline, proj.privacy, proj.description };
+                var objectList = new List<object>() { proj.title, proj.deadline, proj.privacy, proj.description, proj.publicationDate };
                 valueRange.Values = new List<IList<object>> { objectList };
 
                 var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, range);
@@ -303,9 +304,10 @@ namespace DevPlanner
 
         //Saving & reading data (txt)
 
-        bool SaveToTxt()
+        bool SaveToTxt(NewProject newProj)
         {
-            string desc = titleTxt.Text + "|" + deadlineTxt.Text + "|" + privacyCmb.Text + "|" + descriptionTxt.Text;
+            string dateParsed = dateParse(newProj.deadline);
+            string desc = newProj.title + "|" + dateParsed + "|" + newProj.privacy + "|" + newProj.description + "|" + newProj.publicationDate;
             using (StreamWriter sw = new StreamWriter("data.txt", true))
             {
                 sw.WriteLine(desc);
@@ -325,10 +327,28 @@ namespace DevPlanner
                 {
                     string[] par = line.Split('|');
 
-                    NewProject newProj = new NewProject(par[0], par[1], par[2], par[3]);
+                    NewProject newProj = new NewProject(par[0], par[1], par[2], par[3], par[4]);
                     if(!privProjList.Contains(newProj))
                     {
                         privProjList.Add(newProj);
+                    }
+                }
+            }
+        }
+
+        void ReadApiData()
+        {
+            using (StreamReader sr = new StreamReader("api.txt"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] par = line.Split('|');
+
+                    NewApi na = new NewApi(par[0], par[1], par[2]);
+                    if (!apiList.Contains(na))
+                    {
+                        apiList.Add(na);
                     }
                 }
             }
@@ -368,8 +388,6 @@ namespace DevPlanner
 
             foreach (NewProject newProj in pubProjList)
             {
-                bool isActual = false;
-
                 DateTime actualDate = DateTime.Parse(date);
                 DateTime deadlineDate = DateTime.Parse(newProj.deadline);
 
@@ -404,8 +422,6 @@ namespace DevPlanner
 
             foreach (NewProject newProj in privProjList)
             {
-                bool isActual = false;
-
                 DateTime actualDate = DateTime.Parse(date);
                 DateTime deadlineDate = DateTime.Parse(newProj.deadline);
 
@@ -434,7 +450,7 @@ namespace DevPlanner
             return finish;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        void deadlineMessage()
         {
             string message = "";
             string privMessage = "";
@@ -447,12 +463,12 @@ namespace DevPlanner
                 message += privMessage;
                 message += ',';
             }
-            if(pubMessage.Length > 0)
+            if (pubMessage.Length > 0)
             {
                 message += pubMessage;
                 message += ',';
             }
-            if(message.Length > 0)
+            if (message.Length > 0)
             {
                 message = message.Remove(message.Length - 1);
                 MessageBox.Show("Deadlines Today: " + message);
@@ -467,10 +483,41 @@ namespace DevPlanner
 
         private void refreshPublicBtn_Click(object sender, RoutedEventArgs e)
         {
+            apisCmb.ItemsSource = apiList;
             pubProjList.Clear();
             readSheetData();
             publicList.ItemsSource = null;
             publicList.ItemsSource = pubProjList;
         }
+
+        public void getApi(NewApi api)
+        {
+            SpreadsheetId = api.id;
+            path = api.path;
+
+            inProgressProjectsList.Clear();
+            pubProjList.Clear();
+            accessSheets();
+            readSheetData();
+            publicList.ItemsSource = null;
+            publicList.ItemsSource = pubProjList;
+
+            inProgressList.ItemsSource = null;
+            inProgressList.ItemsSource = inProgressProjectsList;
+
+            deadlineMessage();
+        }
+
+        private void addConenctionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ApiWindow aw = new ApiWindow();
+            aw.Show();
+        }
+
+        private void connectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            getApi(apisCmb.SelectedItem as NewApi);
+        }
+
     }
 }
