@@ -206,11 +206,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ch\\Desktop\\got\\DevPlanner\\DevPlanner\\DevPlanner.csproj",
+      "projectUniqueName": "C:\\Users\\ch\\Desktop\\DevPlanner publix\\DevPlanner\\DevPlanner\\DevPlanner.csproj",
       "projectName": "DevPlanner",
-      "projectPath": "C:\\Users\\ch\\Desktop\\got\\DevPlanner\\DevPlanner\\DevPlanner.csproj",
+      "projectPath": "C:\\Users\\ch\\Desktop\\DevPlanner publix\\DevPlanner\\DevPlanner\\DevPlanner.csproj",
       "packagesPath": "C:\\Users\\ch\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ch\\Desktop\\got\\DevPlanner\\DevPlanner\\obj\\",
+      "outputPath": "C:\\Users\\ch\\Desktop\\DevPlanner publix\\DevPlanner\\DevPlanner\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ch\\AppData\\Roaming\\NuGet\\NuGet.Config",

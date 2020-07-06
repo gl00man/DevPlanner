@@ -519,5 +519,28 @@ namespace DevPlanner
             getApi(apisCmb.SelectedItem as NewApi);
         }
 
+        //Maximal title and description character check
+
+        private void titleTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string content = titleTxt.Text;
+            int lenght = content.Length;
+            if(lenght > 15)
+            {
+                MessageBox.Show("Title is too long!");
+                titleTxt.Text = content.Substring(0, 15);
+            }
+        }
+
+        private void descriptionTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string content = descriptionTxt.Text;
+            int lenght = descriptionTxt.Text.Length;
+            if (lenght > 220)
+            {
+                MessageBox.Show("Description is too long!");
+                descriptionTxt.Text = content.Substring(0, 220);
+            }
+        }
     }
 }
