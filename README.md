@@ -1,3 +1,4 @@
+<img src="http://project-mkp.5v.pl/project/apps/devplanner.png" width="100" height="100"></img>
 # DEVPLANNER
 *Author: gl00man <maciekbereda46@gmail.com>*
 
