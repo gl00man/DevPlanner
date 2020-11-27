@@ -1,24 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Data;
-using System.Runtime.ExceptionServices;
 using Google.Apis.Sheets.v4;
-using System.Net;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Sheets.v4.Data;
 
@@ -308,7 +294,7 @@ namespace DevPlanner
         {
             string dateParsed = dateParse(newProj.deadline);
             string desc = newProj.title + "|" + dateParsed + "|" + newProj.privacy + "|" + newProj.description + "|" + newProj.publicationDate;
-            using (StreamWriter sw = new StreamWriter("data.txt", true))
+            using (StreamWriter sw = new StreamWriter(@"assets\data.txt", true))
             {
                 sw.WriteLine(desc);
                 sw.Close();
@@ -319,7 +305,7 @@ namespace DevPlanner
         internal void ReadData()
         {
             privProjList.Clear();
-            using (StreamReader sr = new StreamReader("data.txt"))
+            using (StreamReader sr = new StreamReader(@"assets\data.txt"))
             {
                 string line;
 
@@ -338,7 +324,7 @@ namespace DevPlanner
 
         void ReadApiData()
         {
-            using (StreamReader sr = new StreamReader("api.txt"))
+            using (StreamReader sr = new StreamReader(@"assets\api.txt"))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
