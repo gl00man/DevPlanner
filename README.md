@@ -22,9 +22,9 @@ The .exe file can be found in DevPlanner/bin/Debug/netcoreapp3.1
 
 ## Installation
 #### Using Visual Studio: 
-Open soulution in Visual Studio and compile it, after it .exe file should appear in *DevPlanner\bin\Debug\netcoreapp3.1* directory.
+Open solution in Visual Studio and compile it, after it .exe file should appear in *DevPlanner\bin\Debug\netcoreapp3.1* directory.
 #### Using cmd: 
-Go into */DevPlanner* directory, then compile the project using command: 
+Go into */DevPlanner* directory, then compile the code using command: 
 ```bash
   dotnet build
 ```
