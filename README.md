@@ -5,6 +5,7 @@
 ## Table of Content
   - [What is DevPlanner?](#what-is-devplanner)
   - [Requirements](#requirements)
+  - [Installation](#installation)
   - [How to use it?](#how-to-use-it)
     - [Public projects](#public-projects)
 	- [Private projects](#private-projects)
@@ -18,6 +19,16 @@ For Public Projects Google account(optional).
 
 Program is on MIT License so You can use and edit code as You want.
 The .exe file can be found in DevPlanner/bin/Debug/netcoreapp3.1 
+
+## Installation
+#### Using Visual Studio: 
+Open soulution in Visual Studio and compile it, after it .exe file should appear in *DevPlanner\bin\Debug\netcoreapp3.1* directory.
+#### Using cmd: 
+Go into */DevPlanner* directory, then compile the project using command: 
+```bash
+  dotnet build
+```
+.exe file will be created in *DevPlanner\bin\Debug\netcoreapp3.1* directory.
 
 ## How to use it?
 
