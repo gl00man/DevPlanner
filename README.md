@@ -49,4 +49,4 @@ Public project list is based on Google Sheets, if you want to create new public 
 All Your friend need to access your sheet is Sheet's id.
 
 ### Private projects
-Projects that can only You see.
+Local saved projects that can only You see.
